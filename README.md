@@ -60,7 +60,7 @@ class ArticleRepository implements SpecificationAwareRepository
 use Doctrine\ORM\Query\Expr\Composite;
 use FrankDeJonge\DoctrineQuerySpecification\QueryConstraint;
 
-class IsPublished implements QueryContraint
+class IsPublished implements QueryConstraint
 {
     public function asQueryConstraint(QueryBuilder $builder, $rootAlias): Composite
     {
