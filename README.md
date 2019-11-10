@@ -55,11 +55,14 @@ class ArticleRepository implements SpecificationAwareRepository
 ### Query constraints.
 
 ```php
+<?php
+
+use Doctrine\ORM\Query\Expr\Composite;
 use FrankDeJonge\DoctrineQuerySpecification\QueryConstraint;
 
 class IsPublished implements QueryContraint
 {
-    public function asQueryConstraint(QueryBuilder $builder, $rootAlias)
+    public function asQueryConstraint(QueryBuilder $builder, $rootAlias): Composite
     {
         $expr = $builder->expr();
         
@@ -73,11 +76,14 @@ $publishedArticles = $articleRepository->findBySpecification(new IsPublished);
 ### Query modifiers.
 
 ```php
+<?php
+
+use Doctrine\ORM\Query;
 use FrankDeJonge\DoctrineQuerySpecification\QueryModifier;
 
 class AsArray implements QueryModifier
 {
-    public function modifyQuery(Query $query, $rootAlias)
+    public function modifyQuery(Query $query, $rootAlias): void
     {
         $query->setHydrationMode(Query::HYDRATE_ARRAY);
     }
@@ -89,11 +95,14 @@ $publishedArticles = $articleRepository->findBySpecification(new AsArray);
 ### QueryBuilder modifiers.
 
 ```php
+<?php
+
+use Doctrine\ORM\QueryBuilder;
 use FrankDeJonge\DoctrineQuerySpecification\QueryBuilderModifier;
 
 class InReverseOrder implements QueryBuilderModifier
 {
-    public function modifyQueryBuilder(QueryBuilder $builder, $rootAlias)
+    public function modifyQueryBuilder(QueryBuilder $builder, $rootAlias): void 
     {
         $builder->orderBy("{$rootAlias}.id", "DESC");
     }
@@ -124,6 +133,11 @@ The second way is to create new specification objects which encapsulate one of m
 specifications.
 
 ```php
+<?php
+
+use Doctrine\DBAL\Query\QueryBuilder;
+use FrankDeJonge\DoctrineQuerySpecification\QueryConstraint;
+
 class FeaturedFromAuthor implements QueryConstraint
 {
     public function __construct(Author $author)
@@ -146,6 +160,8 @@ class FeaturedFromAuthor implements QueryConstraint
 Lastly you can extend a generic collection:
 
 ```php
+<?php
+
 use FrankDeJonge\DoctrineQuerySpecification\SpecificationCollection\All;
 
 class FeaturedFromAuthor extends All
@@ -153,7 +169,7 @@ class FeaturedFromAuthor extends All
     public function __construct(Author $author)
     {
         parent::__construct([
-            new FromAuthor($this->author),
+            new FromAuthor($author),
             new FeaturedArticle(),
         ]);
     }
