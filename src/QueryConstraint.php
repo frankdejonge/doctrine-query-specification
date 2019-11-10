@@ -12,5 +12,5 @@ interface QueryConstraint extends QuerySpecification
      *
      * @return mixed
      */
-    public function asQueryConstraint(QueryBuilder $queryBuilder, $rootAlias);
+    public function asQueryConstraint(QueryBuilder $queryBuilder, $rootAlias): ?object;
 }

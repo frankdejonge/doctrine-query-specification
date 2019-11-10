@@ -2,6 +2,7 @@
 
 namespace FrankDeJonge\DoctrineQuerySpecification;
 
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
@@ -13,9 +14,9 @@ trait SpecificationAwareRepositoryTrait
      * @param QuerySpecification $specification
      * @param string             $rootAlias
      *
-     * @return array
+     * @return iterable
      */
-    public function findBySpecification(QuerySpecification $specification, $rootAlias = 'root')
+    public function findBySpecification(QuerySpecification $specification, $rootAlias = 'root'): iterable
     {
         return $this->createQuerySatisfiedBy($specification, $rootAlias)->getResult();
     }
@@ -27,6 +28,7 @@ trait SpecificationAwareRepositoryTrait
      * @param string             $rootAlias
      *
      * @return null|object
+     * @throws NonUniqueResultException
      */
     public function findOneBySpecification(QuerySpecification $specification, $rootAlias = 'root')
     {

@@ -15,7 +15,7 @@ class DummyQueryModifier implements QueryModifier
      * @param Query  $query
      * @param string $rootAlias
      */
-    public function modifyQuery(Query $query, $rootAlias)
+    public function modifyQuery(Query $query, $rootAlias): void
     {
         $this->called = true;
     }

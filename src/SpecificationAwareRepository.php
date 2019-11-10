@@ -9,9 +9,9 @@ interface SpecificationAwareRepository
      *
      * @param QuerySpecification $specification
      *
-     * @return array
+     * @return iterable
      */
-    public function findBySpecification(QuerySpecification $specification);
+    public function findBySpecification(QuerySpecification $specification): iterable;
 
     /**
      * Find one entity that matches a given specification.

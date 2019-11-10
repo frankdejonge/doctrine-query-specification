@@ -12,5 +12,5 @@ interface QueryBuilderModifier extends QuerySpecification
      * @param QueryBuilder $queryBuilder
      * @param string       $rootAlias
      */
-    public function modifyQueryBuilder(QueryBuilder $queryBuilder, $rootAlias);
+    public function modifyQueryBuilder(QueryBuilder $queryBuilder, $rootAlias): void;
 }

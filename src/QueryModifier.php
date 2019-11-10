@@ -12,5 +12,5 @@ interface QueryModifier extends QuerySpecification
      * @param Query  $query
      * @param string $rootAlias
      */
-    public function modifyQuery(Query $query, $rootAlias);
+    public function modifyQuery(Query $query, $rootAlias): void;
 }

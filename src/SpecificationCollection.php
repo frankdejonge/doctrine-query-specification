@@ -27,7 +27,7 @@ abstract class SpecificationCollection implements QueryConstraint, QueryModifier
     /**
      * @inheritdoc
      */
-    public function asQueryConstraint(QueryBuilder $queryBuilder, $rootAlias)
+    public function asQueryConstraint(QueryBuilder $queryBuilder, $rootAlias): ?object
     {
         $constraintsFilter = function ($specification) {
             return $specification instanceof QueryConstraint;
@@ -40,15 +40,15 @@ abstract class SpecificationCollection implements QueryConstraint, QueryModifier
         $queryConstraints = array_filter($this->specifications, $constraintsFilter);
         $conditions = array_filter(array_map($conditionMapper, $queryConstraints));
 
-        if ( ! empty($conditions)) {
-            return $this->createCompositeConstraint($queryBuilder->expr(), $conditions);
-        }
+        return empty($conditions)
+            ? null
+            : $this->createCompositeConstraint($queryBuilder->expr(), $conditions);
     }
 
     /**
      * @inheritdoc
      */
-    public function modifyQuery(Query $query, $rootAlias)
+    public function modifyQuery(Query $query, $rootAlias): void
     {
         foreach ($this->specifications as $specification) {
             if ($specification instanceof QueryModifier) {
@@ -60,7 +60,7 @@ abstract class SpecificationCollection implements QueryConstraint, QueryModifier
     /**
      * @inheritdoc
      */
-    public function modifyQueryBuilder(QueryBuilder $queryBuilder, $rootAlias)
+    public function modifyQueryBuilder(QueryBuilder $queryBuilder, $rootAlias): void
     {
         foreach ($this->specifications as $specification) {
             if ($specification instanceof QueryBuilderModifier) {
@@ -75,7 +75,7 @@ abstract class SpecificationCollection implements QueryConstraint, QueryModifier
      *
      * @return Composite
      */
-    abstract protected function createCompositeConstraint(Expr $expression, array $conditions);
+    abstract protected function createCompositeConstraint(Expr $expression, array $conditions): Composite;
 
     /**
      * @param array $specifications

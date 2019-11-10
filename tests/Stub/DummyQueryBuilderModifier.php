@@ -19,7 +19,7 @@ class DummyQueryBuilderModifier implements QueryBuilderModifier
      * @param QueryBuilder $queryBuilder
      * @param string       $rootAlias
      */
-    public function modifyQueryBuilder(QueryBuilder $queryBuilder, $rootAlias)
+    public function modifyQueryBuilder(QueryBuilder $queryBuilder, $rootAlias): void
     {
         $this->called = true;
     }
