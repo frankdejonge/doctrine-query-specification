@@ -20,5 +20,5 @@ interface SpecificationAwareRepository
      *
      * @return object|null
      */
-    public function findOneBySpecification(QuerySpecification $specification);
+    public function findOneBySpecification(QuerySpecification $specification): ?object;
 }

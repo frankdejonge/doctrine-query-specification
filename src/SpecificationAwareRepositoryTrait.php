@@ -16,7 +16,7 @@ trait SpecificationAwareRepositoryTrait
      *
      * @return iterable
      */
-    public function findBySpecification(QuerySpecification $specification, $rootAlias = 'root'): iterable
+    public function findBySpecification(QuerySpecification $specification, string $rootAlias = 'root'): iterable
     {
         return $this->createQuerySatisfiedBy($specification, $rootAlias)->getResult();
     }
@@ -30,7 +30,7 @@ trait SpecificationAwareRepositoryTrait
      * @return null|object
      * @throws NonUniqueResultException
      */
-    public function findOneBySpecification(QuerySpecification $specification, $rootAlias = 'root')
+    public function findOneBySpecification(QuerySpecification $specification, string $rootAlias = 'root'): ?object
     {
         return $this->createQuerySatisfiedBy($specification, $rootAlias)->getOneOrNullResult();
     }
@@ -41,7 +41,7 @@ trait SpecificationAwareRepositoryTrait
      *
      * @return Query
      */
-    protected function createQuerySatisfiedBy(QuerySpecification $specification, $rootAlias)
+    protected function createQuerySatisfiedBy(QuerySpecification $specification, string $rootAlias): Query
     {
         $queryBuilder = $this->createQueryBuilder($rootAlias);
         $this->applyQueryConstraint($specification, $rootAlias, $queryBuilder);
@@ -65,7 +65,7 @@ trait SpecificationAwareRepositoryTrait
      * @param string          $rootAlias
      * @param QueryBuilder    $queryBuilder
      */
-    private function applyQueryConstraint(QuerySpecification $specification, $rootAlias, QueryBuilder $queryBuilder)
+    private function applyQueryConstraint(QuerySpecification $specification, string $rootAlias, QueryBuilder $queryBuilder): void
     {
         if ( ! $specification instanceof QueryConstraint) {
             return;

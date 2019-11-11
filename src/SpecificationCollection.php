@@ -27,7 +27,7 @@ abstract class SpecificationCollection implements QueryConstraint, QueryModifier
     /**
      * @inheritdoc
      */
-    public function asQueryConstraint(QueryBuilder $queryBuilder, $rootAlias): ?object
+    public function asQueryConstraint(QueryBuilder $queryBuilder, string $rootAlias): ?object
     {
         $constraintsFilter = function ($specification) {
             return $specification instanceof QueryConstraint;
@@ -48,7 +48,7 @@ abstract class SpecificationCollection implements QueryConstraint, QueryModifier
     /**
      * @inheritdoc
      */
-    public function modifyQuery(Query $query, $rootAlias): void
+    public function modifyQuery(Query $query, string $rootAlias): void
     {
         foreach ($this->specifications as $specification) {
             if ($specification instanceof QueryModifier) {
@@ -60,7 +60,7 @@ abstract class SpecificationCollection implements QueryConstraint, QueryModifier
     /**
      * @inheritdoc
      */
-    public function modifyQueryBuilder(QueryBuilder $queryBuilder, $rootAlias): void
+    public function modifyQueryBuilder(QueryBuilder $queryBuilder, string $rootAlias): void
     {
         foreach ($this->specifications as $specification) {
             if ($specification instanceof QueryBuilderModifier) {
@@ -82,7 +82,7 @@ abstract class SpecificationCollection implements QueryConstraint, QueryModifier
      *
      * @return All
      */
-    public static function all(array $specifications)
+    public static function all(array $specifications): All
     {
         return new All($specifications);
     }
@@ -92,7 +92,7 @@ abstract class SpecificationCollection implements QueryConstraint, QueryModifier
      *
      * @return Any
      */
-    public static function any(array $specifications)
+    public static function any(array $specifications): Any
     {
         return new Any($specifications);
     }
