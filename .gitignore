@@ -4,3 +4,4 @@
 /config/test.db
 /vendor
 /.idea
+.phpunit.result.cache

@@ -29,7 +29,7 @@ class DummyConstraint implements QueryConstraint
         $this->value = $value;
     }
 
-    public function asQueryConstraint(QueryBuilder $queryBuilder, $rootAlias): ?object
+    public function asQueryConstraint(QueryBuilder $queryBuilder, string $rootAlias): ?object
     {
         $expr = $queryBuilder->expr();
         $queryBuilder->setParameter($this->field, $this->value);

@@ -19,7 +19,7 @@ class DummyQueryBuilderModifier implements QueryBuilderModifier
      * @param QueryBuilder $queryBuilder
      * @param string       $rootAlias
      */
-    public function modifyQueryBuilder(QueryBuilder $queryBuilder, $rootAlias): void
+    public function modifyQueryBuilder(QueryBuilder $queryBuilder, string $rootAlias): void
     {
         $this->called = true;
     }
@@ -27,7 +27,7 @@ class DummyQueryBuilderModifier implements QueryBuilderModifier
     /**
      * @return boolean
      */
-    public function wasCalled()
+    public function wasCalled(): bool
     {
         return $this->called;
     }
