@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace FrankDeJonge\DoctrineQuerySpecification\SpecificationCollection;
 
 use Doctrine\ORM\Query\Expr;

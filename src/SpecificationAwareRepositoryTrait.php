@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace FrankDeJonge\DoctrineQuerySpecification;
 
 use Doctrine\ORM\NonUniqueResultException;

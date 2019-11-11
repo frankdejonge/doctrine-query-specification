@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace FrankDeJonge\DoctrineQuerySpecification\Tests\Stub;
 
 use Doctrine\ORM\Mapping as ORM;
