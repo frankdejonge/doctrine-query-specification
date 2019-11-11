@@ -11,6 +11,12 @@ Query specifications allow you to hook into three stages of the query building p
 This allows you to encapsulate query logic in bite-sized, small, object. When naming these
 objects you can take into account what purpose they fulfill.
 
+## Installation:
+
+```bash
+composer require frankdejonge/doctrine-query-specification
+```
+
 ## Effect
 
 Turn code like this:
