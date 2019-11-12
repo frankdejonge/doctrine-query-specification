@@ -38,8 +38,8 @@ trait SpecificationAwareRepositoryTrait
     }
 
     /**
-     * @param QuerySpecification          $specification
-     * @param                             $rootAlias
+     * @param QuerySpecification $specification
+     * @param string             $rootAlias
      *
      * @return Query
      */
@@ -64,8 +64,8 @@ trait SpecificationAwareRepositoryTrait
 
     /**
      * @param QuerySpecification $specification
-     * @param string          $rootAlias
-     * @param QueryBuilder    $queryBuilder
+     * @param string             $rootAlias
+     * @param QueryBuilder       $queryBuilder
      */
     private function applyQueryConstraint(QuerySpecification $specification, string $rootAlias, QueryBuilder $queryBuilder): void
     {
