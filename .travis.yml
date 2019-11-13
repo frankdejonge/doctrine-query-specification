@@ -18,7 +18,8 @@ cache:
 sudo: false
 
 install:
-    - travis_retry composer install
+    - if [[ "${TRAVIS_PHP_VERSION}" == "nightly" ]]; then composer install --ignore-platform-reqs; fi
+    - if [[ "${TRAVIS_PHP_VERSION}" != "nightly" ]]; then composer install; fi
 
 script:
     - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
