@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace FrankDeJonge\DoctrineQuerySpecification;
 
 use Doctrine\ORM\NonUniqueResultException;
@@ -16,7 +18,7 @@ trait SpecificationAwareRepositoryTrait
      *
      * @return iterable
      */
-    public function findBySpecification(QuerySpecification $specification, $rootAlias = 'root'): iterable
+    public function findBySpecification(QuerySpecification $specification, string $rootAlias = 'root'): iterable
     {
         return $this->createQuerySatisfiedBy($specification, $rootAlias)->getResult();
     }
@@ -30,18 +32,18 @@ trait SpecificationAwareRepositoryTrait
      * @return null|object
      * @throws NonUniqueResultException
      */
-    public function findOneBySpecification(QuerySpecification $specification, $rootAlias = 'root')
+    public function findOneBySpecification(QuerySpecification $specification, string $rootAlias = 'root'): ?object
     {
         return $this->createQuerySatisfiedBy($specification, $rootAlias)->getOneOrNullResult();
     }
 
     /**
-     * @param QuerySpecification          $specification
-     * @param                             $rootAlias
+     * @param QuerySpecification $specification
+     * @param string             $rootAlias
      *
      * @return Query
      */
-    protected function createQuerySatisfiedBy(QuerySpecification $specification, $rootAlias)
+    protected function createQuerySatisfiedBy(QuerySpecification $specification, string $rootAlias): Query
     {
         $queryBuilder = $this->createQueryBuilder($rootAlias);
         $this->applyQueryConstraint($specification, $rootAlias, $queryBuilder);
@@ -62,10 +64,10 @@ trait SpecificationAwareRepositoryTrait
 
     /**
      * @param QuerySpecification $specification
-     * @param string          $rootAlias
-     * @param QueryBuilder    $queryBuilder
+     * @param string             $rootAlias
+     * @param QueryBuilder       $queryBuilder
      */
-    private function applyQueryConstraint(QuerySpecification $specification, $rootAlias, QueryBuilder $queryBuilder)
+    private function applyQueryConstraint(QuerySpecification $specification, string $rootAlias, QueryBuilder $queryBuilder): void
     {
         if ( ! $specification instanceof QueryConstraint) {
             return;

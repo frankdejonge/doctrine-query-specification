@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace FrankDeJonge\DoctrineQuerySpecification;
 
 use Doctrine\ORM\Query;
@@ -12,5 +14,5 @@ interface QueryModifier extends QuerySpecification
      * @param Query  $query
      * @param string $rootAlias
      */
-    public function modifyQuery(Query $query, $rootAlias): void;
+    public function modifyQuery(Query $query, string $rootAlias): void;
 }

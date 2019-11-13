@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace FrankDeJonge\DoctrineQuerySpecification;
 
 use Doctrine\ORM\QueryBuilder;
@@ -12,5 +14,5 @@ interface QueryBuilderModifier extends QuerySpecification
      * @param QueryBuilder $queryBuilder
      * @param string       $rootAlias
      */
-    public function modifyQueryBuilder(QueryBuilder $queryBuilder, $rootAlias): void;
+    public function modifyQueryBuilder(QueryBuilder $queryBuilder, string $rootAlias): void;
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace FrankDeJonge\DoctrineQuerySpecification;
 
 interface SpecificationAwareRepository
@@ -20,5 +22,5 @@ interface SpecificationAwareRepository
      *
      * @return object|null
      */
-    public function findOneBySpecification(QuerySpecification $specification);
+    public function findOneBySpecification(QuerySpecification $specification): ?object;
 }

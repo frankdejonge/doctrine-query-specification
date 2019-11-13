@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace FrankDeJonge\DoctrineQuerySpecification\Tests\Stub;
 
 use Doctrine\ORM\QueryBuilder;
@@ -19,15 +21,15 @@ class DummyQueryBuilderModifier implements QueryBuilderModifier
      * @param QueryBuilder $queryBuilder
      * @param string       $rootAlias
      */
-    public function modifyQueryBuilder(QueryBuilder $queryBuilder, $rootAlias): void
+    public function modifyQueryBuilder(QueryBuilder $queryBuilder, string $rootAlias): void
     {
         $this->called = true;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function wasCalled()
+    public function wasCalled(): bool
     {
         return $this->called;
     }

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace FrankDeJonge\DoctrineQuerySpecification\Tests\Stub;
 
 use FrankDeJonge\DoctrineQuerySpecification\SpecificationCollection;
 
 class QuerySpecificationTest extends AbstractTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -16,7 +18,7 @@ class QuerySpecificationTest extends AbstractTestCase
     /**
      * @return DummyRepository
      */
-    private function getDummyRepository()
+    private function getDummyRepository(): DummyRepository
     {
         return $this->getRepository(DummyEntity::class);
     }
@@ -25,7 +27,7 @@ class QuerySpecificationTest extends AbstractTestCase
     /**
      * @test
      */
-    public function it_should_apply_constraints()
+    public function it_should_apply_constraints(): void
     {
         $repository = $this->getDummyRepository();
         /** @var DummyEntity $result */
@@ -39,7 +41,7 @@ class QuerySpecificationTest extends AbstractTestCase
     /**
      * @test
      */
-    public function it_should_invoke_query_modifiers()
+    public function it_should_invoke_query_modifiers(): void
     {
         $repository = $this->getDummyRepository();
         $spy = new DummyQueryModifier();
@@ -51,7 +53,7 @@ class QuerySpecificationTest extends AbstractTestCase
     /**
      * @test
      */
-    public function it_should_invoke_query_builder_modifiers()
+    public function it_should_invoke_query_builder_modifiers(): void
     {
         $repository = $this->getDummyRepository();
         $spy = new DummyQueryBuilderModifier();
@@ -63,7 +65,7 @@ class QuerySpecificationTest extends AbstractTestCase
     /**
      * @test
      */
-    public function it_should_find_by_an_any_specification()
+    public function it_should_find_by_an_any_specification(): void
     {
         $any = SpecificationCollection::any([
             new DummyConstraint('id', 1),
@@ -78,7 +80,7 @@ class QuerySpecificationTest extends AbstractTestCase
     /**
      * @test
      */
-    public function it_should_find_by_an_all_specification()
+    public function it_should_find_by_an_all_specification(): void
     {
         $modifierSpy = new DummyQueryModifier();
         $builderSpy = new DummyQueryBuilderModifier();
@@ -101,7 +103,7 @@ class QuerySpecificationTest extends AbstractTestCase
     /**
      * @test
      */
-    public function it_should_not_require_constraints_in_collections()
+    public function it_should_not_require_constraints_in_collections(): void
     {
         $any = SpecificationCollection::all([
             new DummyQueryModifier(),
