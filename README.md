@@ -1,5 +1,8 @@
 # Doctrine2 - Specification based querying.
 
+[![Build Status](https://travis-ci.com/frankdejonge/doctrine-query-specification.svg?branch=master)](https://travis-ci.com/frankdejonge/doctrine-query-specification)
+
+
 This packages eases the translation of domain questions to things doctrine can understand.
 
 Query specifications allow you to hook into three stages of the query building process.
