@@ -14,12 +14,12 @@ use FrankDeJonge\DoctrineQuerySpecification\SpecificationCollection\Any;
 abstract class SpecificationCollection implements QueryConstraint, QueryModifier, QueryBuilderModifier
 {
     /**
-     * @var QuerySpecificationInterface[]
+     * @var QuerySpecification[]
      */
     private $specifications;
 
     /**
-     * @param QuerySpecificationInterface[] $specifications
+     * @param QuerySpecification[] $specifications
      */
     public function __construct(array $specifications)
     {
