@@ -4,16 +4,14 @@ on:
       - 'master'
 jobs:
   run:
-    runs-on: 'ubuntu-latest'
-
     strategy:
       matrix:
         php-versions: ['7.3', '7.4', '8.0']
         phpunit-versions: ['latest']
         include:
-          - operating-system: 'ubuntu-latest'
-            php-versions: '7.2'
+          - php-versions: '7.2'
             phpunit-versions: '8.5.13'
+    runs-on: 'ubuntu-latest'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -24,7 +22,7 @@ jobs:
           php-version: ${{ matrix.php-versions }}
           extensions: pdo_sqlite
           coverage: xdebug
-          tools: composer, phpunit
+          tools: composer, phpunit:${{ matrix.phpunit-versions }}
 
       - name: install everything
         run: composer install
