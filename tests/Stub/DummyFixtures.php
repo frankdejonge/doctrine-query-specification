@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace FrankDeJonge\DoctrineQuerySpecification\Tests\Stub;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 class DummyFixtures implements FixtureInterface
 {
