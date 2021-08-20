@@ -1,0 +1,36 @@
+on:
+  push:
+    branches:
+      - 'master'
+jobs:
+  run:
+    strategy:
+      matrix:
+        php-versions: ['7.3', '7.4', '8.0']
+        phpunit-versions: ['latest']
+        include:
+          - php-versions: '7.2'
+            phpunit-versions: '8.5.13'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: pdo_sqlite
+          coverage: xdebug
+          tools: composer, phpunit:${{ matrix.phpunit-versions }}
+
+      - name: install everything
+        run: composer install
+
+      - name: run tests
+        run: phpunit --coverage-text --coverage-clover=coverage.clover
+
+      - name: upload coverage data
+        run: |
+          curl -O https://scrutinizer-ci.com/ocular.phar
+          php ocular.phar code-coverage:upload --format=php-clover coverage.clover
