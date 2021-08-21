@@ -35,8 +35,7 @@ $query = $qb
 Into this:
 
 ```php
-$articles = $articleRepository
-    ->findBySpecification(new FrontPageArticles());
+$articles = $articleRepositoryFieldEquals->findBySpecification(new FrontPageArticles());
 ```
 
 
@@ -65,12 +64,12 @@ class ArticleRepository implements SpecificationAwareRepository
 ```php
 <?php
 
-use Doctrine\ORM\Query\Expr\Composite;
+use Doctrine\ORM\QueryBuilder;
 use FrankDeJonge\DoctrineQuerySpecification\QueryConstraint;
 
 class IsPublished implements QueryConstraint
 {
-    public function asQueryConstraint(QueryBuilder $builder, $rootAlias): Composite
+    public function asQueryConstraint(QueryBuilder $builder, string $rootAlias): ?object
     {
         $expr = $builder->expr();
         
@@ -79,6 +78,35 @@ class IsPublished implements QueryConstraint
 }
 
 $publishedArticles = $articleRepository->findBySpecification(new IsPublished);
+```
+
+Query constrains can also accept user-provided input in constructors. When doing so, use
+parameterized queries to protect yourself against SQL-injections.
+
+<?php
+
+use Doctrine\ORM\Query\Expr\Composite;
+use FrankDeJonge\DoctrineQuerySpecification\QueryConstraint;
+
+class ArticleHasNameLike implements QueryConstraint
+{
+    /** @var string */
+    private $name;
+
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+
+    public function asQueryConstraint(QueryBuilder $builder, string $rootAlias): ?object
+    {
+        $expr = $builder->expr();
+        $builder->setParameter('name_search', $this->name);
+        
+        return $expr->like("{$rootAlias}.name", ':name_search');
+    }
+}
+
+$publishedArticles = $articleRepository->findBySpecification(new );
 ```
 
 ### Query modifiers.
@@ -91,7 +119,7 @@ use FrankDeJonge\DoctrineQuerySpecification\QueryModifier;
 
 class AsArray implements QueryModifier
 {
-    public function modifyQuery(Query $query, $rootAlias): void
+    public function modifyQuery(Query $query, string $rootAlias): void
     {
         $query->setHydrationMode(Query::HYDRATE_ARRAY);
     }
@@ -110,7 +138,7 @@ use FrankDeJonge\DoctrineQuerySpecification\QueryBuilderModifier;
 
 class InReverseOrder implements QueryBuilderModifier
 {
-    public function modifyQueryBuilder(QueryBuilder $builder, $rootAlias): void 
+    public function modifyQueryBuilder(QueryBuilder $builder, string $rootAlias): void 
     {
         $builder->orderBy("{$rootAlias}.id", "DESC");
     }
