@@ -1,7 +1,6 @@
 # Doctrine2 - Specification based querying.
 
-[![Build Status](https://travis-ci.com/frankdejonge/doctrine-query-specification.svg?branch=master)](https://travis-ci.com/frankdejonge/doctrine-query-specification)
-
+[![.github/workflows/main.yaml](https://github.com/frankdejonge/doctrine-query-specification/actions/workflows/main.yaml/badge.svg)](https://github.com/frankdejonge/doctrine-query-specification/actions/workflows/main.yaml)
 
 This packages eases the translation of domain questions to things doctrine can understand.
 
