@@ -107,7 +107,7 @@ class ArticleHasNameLike implements QueryConstraint
     }
 }
 
-$publishedArticles = $articleRepository->findBySpecification(new );
+$publishedArticles = $articleRepository->findBySpecification(new ArticleHasNameLike('Awesome Name'));
 ```
 
 ### Query modifiers.
