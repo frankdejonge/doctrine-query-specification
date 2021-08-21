@@ -3,7 +3,7 @@
     "description": "Specification based querying for Doctrine2",
     "require": {
         "doctrine/orm": "^2.5",
-        "php": "^7.3|^8.0"
+        "php": "^7.4|^8.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
