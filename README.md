@@ -83,6 +83,7 @@ $publishedArticles = $articleRepository->findBySpecification(new IsPublished);
 Query constrains can also accept user-provided input in constructors. When doing so, use
 parameterized queries to protect yourself against SQL-injections.
 
+```php
 <?php
 
 use Doctrine\ORM\Query\Expr\Composite;
