@@ -23,7 +23,7 @@ jobs:
         run: composer install
 
       - name: run tests
-        run: phpunit --coverage-text --coverage-clover=coverage.clover
+        run: vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
 
       - name: upload coverage data
         run: |
