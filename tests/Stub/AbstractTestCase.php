@@ -44,6 +44,7 @@ class AbstractTestCase extends TestCase
      */
     public function getRepository($className): SpecificationAwareRepository
     {
+        /** @var SpecificationAwareRepository */
         return $this->em->getRepository($className);
     }
 }

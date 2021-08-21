@@ -31,9 +31,9 @@ class QuerySpecificationTest extends AbstractTestCase
     {
         $repository = $this->getDummyRepository();
         /** @var DummyEntity $result */
-        $result = $repository->findOneBySpecification(new DummyConstraint('id', 1));
+        $result = $repository->findOneBySpecification(new FieldEquals('id', 1));
         $this->assertEquals(1, $result->getId());
-        $collection = $repository->findBySpecification(new DummyConstraint('id', 2));
+        $collection = $repository->findBySpecification(new FieldEquals('id', 2));
         $this->assertCount(1, $collection);
         $this->assertEquals(2, $collection[0]->getId());
     }
@@ -56,7 +56,7 @@ class QuerySpecificationTest extends AbstractTestCase
     public function it_should_invoke_query_builder_modifiers(): void
     {
         $repository = $this->getDummyRepository();
-        $spy = new DummyQueryBuilderModifier();
+        $spy = new QueryBuilderModifierSpy();
         $this->assertFalse($spy->wasCalled());
         $repository->findBySpecification($spy);
         $this->assertTrue($spy->wasCalled());
@@ -67,10 +67,10 @@ class QuerySpecificationTest extends AbstractTestCase
      */
     public function it_should_find_by_an_any_specification(): void
     {
-        $any = SpecificationCollection::any([
-            new DummyConstraint('id', 1),
-            new DummyConstraint('value', 'second'),
-        ]);
+        $any = SpecificationCollection::any(
+            new FieldEquals('id', 1),
+            new FieldEquals('value', 'second'),
+        );
 
         $repository = $this->getDummyRepository();
         $result = $repository->findBySpecification($any);
@@ -83,12 +83,12 @@ class QuerySpecificationTest extends AbstractTestCase
     public function it_should_find_by_an_all_specification(): void
     {
         $modifierSpy = new DummyQueryModifier();
-        $builderSpy = new DummyQueryBuilderModifier();
-        $any = SpecificationCollection::all([
-            new DummyConstraint('id', 1),
+        $builderSpy = new QueryBuilderModifierSpy();
+        $any = SpecificationCollection::all(
+            new FieldEquals('id', 1),
             $modifierSpy,
             $builderSpy,
-        ]);
+        );
 
         $repository = $this->getDummyRepository();
         /** @var DummyEntity $result */
@@ -105,7 +105,7 @@ class QuerySpecificationTest extends AbstractTestCase
      */
     public function it_can_do_is_not_null_constraints(): void
     {
-        $result = $this->getDummyRepository()->findBySpecification(new DummyFieldIsNotNull('value'));
+        $result = $this->getDummyRepository()->findBySpecification(new FieldIsNotNull('value'));
 
         $this->assertCount(3, $result);
     }
@@ -115,9 +115,7 @@ class QuerySpecificationTest extends AbstractTestCase
      */
     public function it_should_not_require_constraints_in_collections(): void
     {
-        $any = SpecificationCollection::all([new DummyQueryModifier()]);
-
-        $result = $this->getDummyRepository()->findBySpecification($any);
+        $result = $this->getDummyRepository()->findBySpecification(SpecificationCollection::all());
         $this->assertCount(4, $result);
     }
 }

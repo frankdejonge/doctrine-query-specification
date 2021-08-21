@@ -10,39 +10,16 @@ use Doctrine\ORM\QueryBuilder;
 
 trait SpecificationAwareRepositoryTrait
 {
-    /**
-     * Find all entities that match a given specification.
-     *
-     * @param QuerySpecification $specification
-     * @param string             $rootAlias
-     *
-     * @return iterable
-     */
     public function findBySpecification(QuerySpecification $specification, string $rootAlias = 'root'): iterable
     {
         return $this->createQuerySatisfiedBy($specification, $rootAlias)->getResult();
     }
 
-    /**
-     * Find an entity that matches a given specification.
-     *
-     * @param QuerySpecification $specification
-     * @param string             $rootAlias
-     *
-     * @return null|object
-     * @throws NonUniqueResultException
-     */
     public function findOneBySpecification(QuerySpecification $specification, string $rootAlias = 'root'): ?object
     {
         return $this->createQuerySatisfiedBy($specification, $rootAlias)->getOneOrNullResult();
     }
 
-    /**
-     * @param QuerySpecification $specification
-     * @param string             $rootAlias
-     *
-     * @return Query
-     */
     protected function createQuerySatisfiedBy(QuerySpecification $specification, string $rootAlias): Query
     {
         $queryBuilder = $this->createQueryBuilder($rootAlias);
@@ -61,12 +38,6 @@ trait SpecificationAwareRepositoryTrait
         return $query;
     }
 
-
-    /**
-     * @param QuerySpecification $specification
-     * @param string             $rootAlias
-     * @param QueryBuilder       $queryBuilder
-     */
     private function applyQueryConstraint(QuerySpecification $specification, string $rootAlias, QueryBuilder $queryBuilder): void
     {
         if ( ! $specification instanceof QueryConstraint) {

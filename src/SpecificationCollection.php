@@ -16,19 +16,13 @@ abstract class SpecificationCollection implements QueryConstraint, QueryModifier
     /**
      * @var QuerySpecification[]
      */
-    private $specifications;
+    private array $specifications;
 
-    /**
-     * @param QuerySpecification[] $specifications
-     */
-    public function __construct(array $specifications)
+    public function __construct(QuerySpecification ...$specifications)
     {
         $this->specifications = $specifications;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function asQueryConstraint(QueryBuilder $queryBuilder, string $rootAlias): ?object
     {
         $constraintsFilter = function ($specification) {
@@ -42,14 +36,11 @@ abstract class SpecificationCollection implements QueryConstraint, QueryModifier
         $queryConstraints = array_filter($this->specifications, $constraintsFilter);
         $conditions = array_filter(array_map($conditionMapper, $queryConstraints));
 
-        return empty($conditions)
+        return count($conditions) === 0
             ? null
             : $this->createCompositeConstraint($queryBuilder->expr(), $conditions);
     }
 
-    /**
-     * @inheritdoc
-     */
     public function modifyQuery(Query $query, string $rootAlias): void
     {
         foreach ($this->specifications as $specification) {
@@ -59,9 +50,6 @@ abstract class SpecificationCollection implements QueryConstraint, QueryModifier
         }
     }
 
-    /**
-     * @inheritdoc
-     */
     public function modifyQueryBuilder(QueryBuilder $queryBuilder, string $rootAlias): void
     {
         foreach ($this->specifications as $specification) {
@@ -71,31 +59,15 @@ abstract class SpecificationCollection implements QueryConstraint, QueryModifier
         }
     }
 
-    /**
-     * @param Expr  $expression
-     * @param array $conditions
-     *
-     * @return Composite
-     */
     abstract protected function createCompositeConstraint(Expr $expression, array $conditions): Composite;
 
-    /**
-     * @param array $specifications
-     *
-     * @return All
-     */
-    public static function all(array $specifications): All
+    public static function all(QuerySpecification ...$specifications): All
     {
-        return new All($specifications);
+        return new All(...$specifications);
     }
 
-    /**
-     * @param array $specifications
-     *
-     * @return Any
-     */
-    public static function any(array $specifications): Any
+    public static function any(QuerySpecification ...$specifications): Any
     {
-        return new Any($specifications);
+        return new Any(...$specifications);
     }
 }

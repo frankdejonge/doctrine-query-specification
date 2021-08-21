@@ -5,7 +5,7 @@ namespace FrankDeJonge\DoctrineQuerySpecification\Tests\Stub;
 use Doctrine\ORM\QueryBuilder;
 use FrankDeJonge\DoctrineQuerySpecification\QueryConstraint;
 
-class DummyFieldIsNotNull implements QueryConstraint
+class FieldIsNotNull implements QueryConstraint
 {
     /**
      * @var string

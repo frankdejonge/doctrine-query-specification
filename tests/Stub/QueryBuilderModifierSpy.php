@@ -7,7 +7,7 @@ namespace FrankDeJonge\DoctrineQuerySpecification\Tests\Stub;
 use Doctrine\ORM\QueryBuilder;
 use FrankDeJonge\DoctrineQuerySpecification\QueryBuilderModifier;
 
-class DummyQueryBuilderModifier implements QueryBuilderModifier
+class QueryBuilderModifierSpy implements QueryBuilderModifier
 {
     /**
      * @var bool

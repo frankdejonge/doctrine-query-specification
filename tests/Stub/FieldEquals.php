@@ -7,7 +7,7 @@ namespace FrankDeJonge\DoctrineQuerySpecification\Tests\Stub;
 use Doctrine\ORM\QueryBuilder;
 use FrankDeJonge\DoctrineQuerySpecification\QueryConstraint;
 
-class DummyConstraint implements QueryConstraint
+class FieldEquals implements QueryConstraint
 {
     /**
      * @var string
@@ -19,13 +19,7 @@ class DummyConstraint implements QueryConstraint
      */
     private $value;
 
-    /**
-     * DummyConstraint constructor.
-     *
-     * @param string $field
-     * @param mixed  $value
-     */
-    public function __construct($field, $value)
+    public function __construct(string $field, $value)
     {
         $this->field = $field;
         $this->value = $value;
