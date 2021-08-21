@@ -1,4 +1,5 @@
 /composer.lock
+/coverage
 /phpunit.xml
 /build
 /config/test.db
