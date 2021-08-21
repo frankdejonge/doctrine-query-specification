@@ -6,11 +6,7 @@ jobs:
   run:
     strategy:
       matrix:
-        php-versions: ['7.3', '7.4', '8.0']
-        phpunit-versions: ['latest']
-        include:
-          - php-versions: '7.2'
-            phpunit-versions: '8.5.13'
+        php-version: ['7.3', '7.4', '8.0']
     runs-on: 'ubuntu-latest'
     steps:
       - name: Checkout
@@ -19,10 +15,9 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-versions }}
+          php-version: ${{ matrix.php-version }}
           extensions: pdo_sqlite
           coverage: xdebug
-          tools: composer, phpunit:${{ matrix.phpunit-versions }}
 
       - name: install everything
         run: composer install
