@@ -31,7 +31,7 @@ class QuerySpecificationTest extends AbstractTestCase
     {
         $repository = $this->getDummyRepository();
         /** @var DummyEntity $result */
-        $result = $repository->findOneBySpecification(new DummyConstraint('id', 1, 'id'));
+        $result = $repository->findOneBySpecification(new DummyConstraint('id', 1));
         $this->assertEquals(1, $result->getId());
         $collection = $repository->findBySpecification(new DummyConstraint('id', 2));
         $this->assertCount(1, $collection);
@@ -103,13 +103,21 @@ class QuerySpecificationTest extends AbstractTestCase
     /**
      * @test
      */
+    public function it_can_do_is_not_null_constraints(): void
+    {
+        $result = $this->getDummyRepository()->findBySpecification(new DummyFieldIsNotNull('value'));
+
+        $this->assertCount(3, $result);
+    }
+
+    /**
+     * @test
+     */
     public function it_should_not_require_constraints_in_collections(): void
     {
-        $any = SpecificationCollection::all([
-            new DummyQueryModifier(),
-        ]);
+        $any = SpecificationCollection::all([new DummyQueryModifier()]);
 
         $result = $this->getDummyRepository()->findBySpecification($any);
-        $this->assertCount(3, $result);
+        $this->assertCount(4, $result);
     }
 }

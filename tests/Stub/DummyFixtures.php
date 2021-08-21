@@ -19,6 +19,7 @@ class DummyFixtures implements FixtureInterface
         $manager->persist(new DummyEntity('first'));
         $manager->persist(new DummyEntity('second'));
         $manager->persist(new DummyEntity('third'));
+        $manager->persist(new DummyEntity());
         $manager->flush();
     }
 }

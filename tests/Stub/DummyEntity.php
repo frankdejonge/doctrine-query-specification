@@ -20,11 +20,11 @@ class DummyEntity
     private $id;
 
     /**
-     * @ORM\Column(name="value", type="text")
+     * @ORM\Column(name="value", type="text", nullable=true)
      */
     private $value;
 
-    public function __construct($value)
+    public function __construct($value = null)
     {
         $this->value = $value;
     }
