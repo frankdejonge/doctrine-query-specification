@@ -187,7 +187,7 @@ class FeaturedFromAuthor implements QueryConstraint
     {
         $expr = $queryBuilder->expr();
         
-        return $expr->and(
+        return $expr->andX(
             (new FromAuthor($this->author))->asQueryConstraint($queryBuilder, $rootAlias),
             (new FeaturedArticle)->asQueryConstraint($queryBuilder, $rootAlias),
         );
