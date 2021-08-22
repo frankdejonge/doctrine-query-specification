@@ -86,7 +86,7 @@ parameterized queries to protect yourself against SQL-injections.
 ```php
 <?php
 
-use Doctrine\ORM\Query\Expr\Composite;
+use Doctrine\ORM\QueryBuilder;
 use FrankDeJonge\DoctrineQuerySpecification\QueryConstraint;
 
 class ArticleHasNameLike implements QueryConstraint
@@ -97,6 +97,7 @@ class ArticleHasNameLike implements QueryConstraint
     public function __construct(string $name)
     {
         $this->name = $name;
+    }
 
     public function asQueryConstraint(QueryBuilder $builder, string $rootAlias): ?object
     {
