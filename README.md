@@ -154,16 +154,16 @@ There are three ways of building compositions. Firstly there are specification c
 which allow you to create `andX` and `orX` groups.
 
 ```php
-$andSpecification = SpecificationCollection::all([
+$andSpecification = SpecificationCollection::all(
     new IsPublished(),
     new InReversedOrder(),
     new WithAuthor(),
-]);
+);
 
-$orSpecification = SpecificationCollection::any([
+$orSpecification = SpecificationCollection::any(
     new IsFeatured(),
     new IsPublishedToday(),
-]);
+);
 ```
 
 The second way is to create new specification objects which encapsulate one of more other
@@ -172,7 +172,7 @@ specifications.
 ```php
 <?php
 
-use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\ORM\QueryBuilder;
 use FrankDeJonge\DoctrineQuerySpecification\QueryConstraint;
 
 class FeaturedFromAuthor implements QueryConstraint
@@ -182,11 +182,11 @@ class FeaturedFromAuthor implements QueryConstraint
         $this->author = $author;
     }
 
-    public function asQueryConstraint(QueryBuilder $queryBuilder, $rootAlias)
+    public function asQueryConstraint(QueryBuilder $queryBuilder, string $rootAlias): ?object
     {
         $expr = $queryBuilder->expr();
         
-        return $expr->andX(
+        return $expr->and(
             (new FromAuthor($this->author))->asQueryConstraint($queryBuilder, $rootAlias),
             (new FeaturedArticle)->asQueryConstraint($queryBuilder, $rootAlias),
         );
@@ -205,10 +205,10 @@ class FeaturedFromAuthor extends All
 {
     public function __construct(Author $author)
     {
-        parent::__construct([
+        parent::__construct(
             new FromAuthor($author),
             new FeaturedArticle(),
-        ]);
+        );
     }
 }
 ```
