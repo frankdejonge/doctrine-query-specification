@@ -20,7 +20,7 @@ trait SpecificationAwareRepositoryTrait
         return $this->createQuerySatisfiedBy($specification, $rootAlias)->getOneOrNullResult();
     }
 
-    protected function createQuerySatisfiedBy(QuerySpecification $specification, string $rootAlias): Query
+    public function createQuerySatisfiedBy(QuerySpecification $specification, string $rootAlias): Query
     {
         $queryBuilder = $this->createQueryBuilder($rootAlias);
         $this->applyQueryConstraint($specification, $rootAlias, $queryBuilder);
