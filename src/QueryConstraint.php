@@ -13,5 +13,8 @@ use Doctrine\ORM\QueryBuilder;
  */
 interface QueryConstraint extends QuerySpecification
 {
-    public function asQueryConstraint(QueryBuilder $queryBuilder, string $rootAlias): ?object;
+    /**
+     * @return object|string|null
+     */
+    public function asQueryConstraint(QueryBuilder $queryBuilder, string $rootAlias);
 }
