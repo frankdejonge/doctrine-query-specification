@@ -59,5 +59,5 @@ trait SpecificationAwareRepositoryTrait
      *
      * @return QueryBuilder
      */
-    abstract public function createQueryBuilder($alias, $indexBy = null);
+    abstract public function createQueryBuilder($alias, $indexBy = null): QueryBuilder;
 }
