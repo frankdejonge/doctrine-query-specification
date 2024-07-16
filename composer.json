@@ -2,7 +2,7 @@
     "name": "frankdejonge/doctrine-query-specification",
     "description": "Specification based querying for Doctrine2",
     "require": {
-        "doctrine/orm": "^2.5",
+        "doctrine/orm": "^2|^3",
         "php": "^7.4|^8.0"
     },
     "require-dev": {
@@ -10,6 +10,7 @@
         "doctrine/data-fixtures": "^1.1",
         "doctrine/cache": "^1.1",
         "doctrine/annotations": "^1.13"
+
     },
     "autoload": {
         "psr-4": {
